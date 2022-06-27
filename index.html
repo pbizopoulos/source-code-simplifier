@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1" name="viewport">
+		<meta content="" name="description">
+		<title>Source code normalizer</title>
+		<link href="data:," rel="icon">
+		<link href="https://pbizopoulos.github.io/style.css" rel="stylesheet">
+		<script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+		<py-env>
+                - paths:
+                  - ./source_code_normalizer.py
+                  - ./tests/add_two_blank_lines_before_first_class_bad.py
+                  - ./tests/add_two_blank_lines_between_classes_and_defs_bad.py
+                  - ./tests/convert_double_quotes_to_single_quotes_bad.py
+                  - ./tests/convert_is_to_equality_when_comparing_with_constant_bad.py
+                  - ./tests/convert_to_four_spaces_indentation_bad.py
+                  - ./tests/fix_blank_line_at_end_of_file_bad.py
+                  - ./tests/fix_blank_line_contains_whitespace_bad.py
+                  - ./tests/fix_comparison_to_none_should_be_cond_is_none_bad.py
+                  - ./tests/fix_comparison_to_true_should_be_if_cond_is_true_or_if_cond_bad.py
+                  - ./tests/fix_do_not_compare_types_use_isinstance_bad.py
+		  - ./tests/fix_float_to_full_representation_bad.py
+                  - ./tests/fix_import_not_at_top_of_file_bad.py
+                  - ./tests/fix_invalid_escape_sequence_bad.py
+                  - ./tests/fix_lines_after_def_decorator_bad.py
+                  - ./tests/fix_missing_whitespace_after_comma_semicolon_or_colon_bad.py
+                  - ./tests/fix_missing_whitespace_after_keyword_bad.py
+                  - ./tests/fix_missing_whitespace_around_arithmetic_operator_bad.py
+                  - ./tests/fix_missing_whitespace_around_bitwise_or_shift_operator_bad.py
+                  - ./tests/fix_missing_whitespace_around_modulo_operator_bad.py
+                  - ./tests/fix_missing_whitespace_around_operator_bad.py
+                  - ./tests/fix_multiple_imports_in_one_line_bad.py
+                  - ./tests/fix_multiple_spaces_after_operator_bad.py
+                  - ./tests/fix_multiple_spaces_before_operator_bad.py
+                  - ./tests/fix_multiple_statements_on_one_line_colon_bad.py
+                  - ./tests/fix_multiple_statements_on_one_line_def_bad.py
+                  - ./tests/fix_multiple_statements_on_one_line_semicolon_bad.py
+                  - ./tests/fix_one_blank_line_between_methods_of_class_bad.py
+                  - ./tests/fix_statement_ends_with_semicolon_bad.py
+                  - ./tests/fix_tab_after_operator_bad.py
+                  - ./tests/fix_tab_around_keyword_bad.py
+                  - ./tests/fix_tab_before_operator_bad.py
+                  - ./tests/fix_test_for_membership_should_be_not_in_bad.py
+                  - ./tests/fix_test_for_object_identity_should_be_is_not_bad.py
+                  - ./tests/fix_trailing_whitespace_bad.py
+                  - ./tests/fix_tuple_parenthesis_bad.py
+                  - ./tests/fix_two_blank_lines_after_imports_bad.py
+                  - ./tests/fix_two_blank_lines_before_if_main_name_bad.py
+                  - ./tests/fix_two_blank_lines_between_defs_and_classes_bad.py
+                  - ./tests/fix_whitespace_around_comma_bad.py
+                  - ./tests/fix_whitespace_around_keyword_bad.py
+                  - ./tests/fix_whitespace_around_keyword_equals_bad.py
+                  - ./tests/fix_whitespace_before_colon_bad.py
+                  - ./tests/fix_whitespaces_around_parenthesis_bad.py
+                  - ./tests/forbid_async_await.py
+                  - ./tests/forbid_classes_that_contain_non_defs.py
+                  - ./tests/forbid_empty_def.py
+                  - ./tests/forbid_globals.py
+                  - ./tests/forbid_import_from_logging.py
+                  - ./tests/forbid_import_from_star.py
+                  - ./tests/forbid_import_from_with_non_module_parent.py
+                  - ./tests/forbid_import_logging.py
+                  - ./tests/forbid_import_submodule.py
+                  - ./tests/forbid_import_with_non_module_parent.py
+                  - ./tests/forbid_lambda_assignments.py
+                  - ./tests/forbid_local_variable_named_builtin.py
+                  - ./tests/forbid_nested_classes.py
+                  - ./tests/forbid_nested_defs.py
+                  - ./tests/forbid_printf_strings.py
+                  - ./tests/forbid_relative_imports.py
+                  - ./tests/forbid_single_letter_class_names.py
+                  - ./tests/forbid_single_letter_def_names.py
+                  - ./tests/forbid_single_letter_variable_names.py
+                  - ./tests/forbid_statements_outside_of_blocks.py
+                  - ./tests/forbid_try_except.py
+                  - ./tests/forbid_unsorted_def_arguments.py
+                  - ./tests/merge_multiple_import_from_with_same_module_bad.py
+                  - ./tests/move_classes_before_defs_bad.py
+                  - ./tests/remove_breakpoints_bad.py
+                  - ./tests/remove_comments_inline_bad.py
+                  - ./tests/remove_comments_whole_line_bad.py
+                  - ./tests/remove_continuation_character_bad.py
+                  - ./tests/remove_docstrings_double_quoted_bad.py
+                  - ./tests/remove_docstrings_double_quoted_multi_line_bad.py
+                  - ./tests/remove_docstrings_single_quoted_bad.py
+                  - ./tests/remove_docstrings_single_quoted_multi_line_bad.py
+                  - ./tests/remove_duplicate_import_bad.py
+                  - ./tests/remove_duplicate_import_from_bad.py
+                  - ./tests/remove_empty_for_bad.py
+                  - ./tests/remove_empty_if_bad.py
+                  - ./tests/remove_non_call_expressions_bad.py
+                  - ./tests/remove_object_inheritance_from_class_bad.py
+                  - ./tests/remove_prints_bad.py
+                  - ./tests/remove_trailing_comma_bad.py
+                  - ./tests/remove_type_hints_bad.py
+                  - ./tests/remove_unneeded_parenthesis_bad.py
+                  - ./tests/remove_unused_import_bad.py
+                  - ./tests/remove_unused_import_froms_bad.py
+                  - ./tests/retain_double_quotes_when_contain_single_quote_bad.py
+                  - ./tests/sort_classes_in_module_bad.py
+                  - ./tests/sort_defs_in_class_bad.py
+                  - ./tests/sort_defs_in_module_bad.py
+                  - ./tests/sort_imports_bad.py
+                  - ./tests/sort_imports_from_bad.py
+		</py-env>
+	</head>
+	<body>
+		<div class="div-header">
+			<nav>
+				<a href="https://pbizopoulos.github.io">Home page</a> / <b>Source code normalizer</b>
+			</nav>
+			<div class="div-source-code-link">
+				<a href="https://github.com/pbizopoulos/source-code-normalizer">Source code</a>
+			</div>
+		</div>
+		An autoformatter focused on simplicity.
+		Its general rules are:
+		<ul>
+			<li>Classes are childs of the module</li>
+			<li>Compiler errors are not fixed</li>
+			<li>Defs are childs of the module or of classes</li>
+			<li>Everything that can be sorted is sorted</li>
+			<li>Forbid/replace anything complex when something newer/simpler is available</li>
+			<li>Forbid/remove anything that does not contribute to the result</li>
+			<li>Only one module named main.py</li>
+		</ul>
+		Installation:
+		<p><code>python3 -m pip install https://github.com/pbizopoulos/source-code-normalizer/archive/main.zip</code></p>
+		Usage:
+		<p><code>source_code_normalizer code_input.py > code_output.py</code></p>
+		Playground:
+		<button id="normalizeButton" pys-onClick="on_click_normalize_button" style="width:100%" type="submit">Normalize</button>
+		<div>
+			<select id="inputSelect" pys-onClick="on_select_input" style="border:solid;float:left;width:50%;"></select>
+			<select id="differenceNormalizedSelect" pys-onClick="on_select_input_normalized_difference" style="border:solid;width:50%;">
+				<option value="difference">Input-Normalized difference</option>
+				<option value="normalized">Normalized</option>
+			</select>
+		</div>
+		<div>
+			<textarea id="inputTextarea" onkeyup="this.style.height='1px';this.style.height=`${this.scrollHeight}px`;" style="float:left;resize:none;width:50%;" ></textarea>
+			<pre id="differencePre" style="border:solid;margin:0px;margin-left:50%;"></pre>
+			<pre id="normalizedPre" style="border:solid;margin:0px;margin-left:50%;" hidden></pre>
+		</div>
+		<py-script src="./index.py"></py-script>
+	</body>
+</html>

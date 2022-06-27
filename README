@@ -1,0 +1,18 @@
+Source Code Normalizer for Python:
+- https://pbizopoulos.github.io/source-code-normalizer
+
+Requirements:
+- POSIX compliant shell (ash, bash, dash, ksh, posh, yash or zsh)
+- Git (Any version)
+- Make (bmake or GNU Make)
+- Python (>=3.9)
+
+Preparation:
+git clone https://github.com/pbizopoulos/source-code-normalizer
+cd source-code-normalizer/
+
+Usage:
+make -f Makefile.server # Setup local server.
+make			# Run tests.
+make clean 		# Remove dependent directories.
+make help		# Show all commands.
