@@ -1,5 +1,5 @@
-Source Code Normalizer for Python:
-- https://pbizopoulos.github.io/source-code-normalizer
+Source Code Simplifier for Python:
+- https://pbizopoulos.github.io/source-code-simplifier
 
 Requirements:
 - POSIX compliant shell (ash, bash, dash, ksh, posh, yash or zsh)
@@ -8,8 +8,8 @@ Requirements:
 - Python (>=3.9)
 
 Preparation:
-git clone https://github.com/pbizopoulos/source-code-normalizer
-cd source-code-normalizer/
+git clone https://github.com/pbizopoulos/source-code-simplifier
+cd source-code-simplifier/
 
 Usage:
 make -f Makefile.server # Setup local server.

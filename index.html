@@ -4,13 +4,13 @@
 		<meta charset="utf-8">
 		<meta content="width=device-width, initial-scale=1" name="viewport">
 		<meta content="" name="description">
-		<title>Source code normalizer</title>
+		<title>Source code simplifier</title>
 		<link href="data:," rel="icon">
 		<link href="https://pbizopoulos.github.io/style.css" rel="stylesheet">
 		<script defer src="https://pyscript.net/alpha/pyscript.js"></script>
 		<py-env>
                 - paths:
-                  - ./source_code_normalizer.py
+                  - ./source_code_simplifier.py
                   - ./tests/add_two_blank_lines_before_first_class_bad.py
                   - ./tests/add_two_blank_lines_between_classes_and_defs_bad.py
                   - ./tests/convert_double_quotes_to_single_quotes_bad.py
@@ -112,10 +112,10 @@
 	<body>
 		<div class="div-header">
 			<nav>
-				<a href="https://pbizopoulos.github.io">Home page</a> / <b>Source code normalizer</b>
+				<a href="https://pbizopoulos.github.io">Home page</a> / <b>Source code simplifier</b>
 			</nav>
 			<div class="div-source-code-link">
-				<a href="https://github.com/pbizopoulos/source-code-normalizer">Source code</a>
+				<a href="https://github.com/pbizopoulos/source-code-simplifier">Source code</a>
 			</div>
 		</div>
 		An autoformatter focused on simplicity.
@@ -130,22 +130,22 @@
 			<li>Only one module named main.py</li>
 		</ul>
 		Installation:
-		<p><code>python3 -m pip install https://github.com/pbizopoulos/source-code-normalizer/archive/main.zip</code></p>
+		<p><code>python3 -m pip install https://github.com/pbizopoulos/source-code-simplifier/archive/main.zip</code></p>
 		Usage:
-		<p><code>source_code_normalizer code_input.py > code_output.py</code></p>
+		<p><code>source_code_simplifier code_input.py > code_output.py</code></p>
 		Playground:
-		<button id="normalizeButton" pys-onClick="on_click_normalize_button" style="width:100%" type="submit">Normalize</button>
+		<button id="simplifyButton" pys-onClick="on_click_simplify_button" style="width:100%" type="submit">Simplify</button>
 		<div>
 			<select id="inputSelect" pys-onClick="on_select_input" style="border:solid;float:left;width:50%;"></select>
-			<select id="differenceNormalizedSelect" pys-onClick="on_select_input_normalized_difference" style="border:solid;width:50%;">
-				<option value="difference">Input-Normalized difference</option>
-				<option value="normalized">Normalized</option>
+			<select id="differenceSimplifiedSelect" pys-onClick="on_select_input_simplified_difference" style="border:solid;width:50%;">
+				<option value="difference">Input-Simplified difference</option>
+				<option value="simplified">Simplified</option>
 			</select>
 		</div>
 		<div>
 			<textarea id="inputTextarea" onkeyup="this.style.height='1px';this.style.height=`${this.scrollHeight}px`;" style="float:left;resize:none;width:50%;" ></textarea>
 			<pre id="differencePre" style="border:solid;margin:0px;margin-left:50%;"></pre>
-			<pre id="normalizedPre" style="border:solid;margin:0px;margin-left:50%;" hidden></pre>
+			<pre id="simplifiedPre" style="border:solid;margin:0px;margin-left:50%;" hidden></pre>
 		</div>
 		<py-script src="./index.py"></py-script>
 	</body>

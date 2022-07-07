@@ -187,11 +187,11 @@ class Transformer(ast.NodeTransformer):
 
 def main():
     if len(sys.argv) == 2:
-        output = source_code_normalizer(sys.argv[1])
+        output = source_code_simplifier(sys.argv[1])
         sys.stdout.write(output)
 
 
-def source_code_normalizer(code_input):
+def source_code_simplifier(code_input):
     if isinstance(code_input, str):
         with open(code_input) as file:
             root = ast.parse(file.read())
