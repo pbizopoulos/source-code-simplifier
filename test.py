@@ -30,7 +30,7 @@ class Tests(unittest.TestCase):
                     with open(join('tests', test_file_name)) as file:
                         code_output = source_code_normalizer(file)
                     with open(join('tests', test_file_name.replace('bad', 'good'))) as file:
-                        code_output_good = file.read().rstrip('\n')
+                        code_output_good = file.read()
                     self.assertEqual(code_output, code_output_good)
 
 

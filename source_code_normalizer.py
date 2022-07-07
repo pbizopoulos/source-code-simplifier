@@ -1,9 +1,9 @@
 from io import TextIOWrapper
 from itertools import groupby
 from os.path import exists, join
-from sys import argv, path, stdout
 import ast
 import builtins
+import sys
 
 
 class Transformer(ast.NodeTransformer):
@@ -11,7 +11,6 @@ class Transformer(ast.NodeTransformer):
     def __init__(self):
         self.name_list = []
         self.parent = None
-        self.sys_path_local = path[0]
 
     def visit(self, node):
         node.parent = self.parent
@@ -19,6 +18,8 @@ class Transformer(ast.NodeTransformer):
         node = super().visit(node)
         if hasattr(node, 'name') and len(node.name) == 1:
             raise AssertionError(f'Error in line {node.lineno}: {node.name} node names cannot be single letter.')
+        if hasattr(node, 'id') and len(node.id) == 1 and (node.id != '_'):
+            raise AssertionError(f'Error in line {node.lineno}: {node.id} node names cannot be single letter.')
         if isinstance(node, ast.AST):
             self.parent = node.parent
         return node
@@ -43,6 +44,8 @@ class Transformer(ast.NodeTransformer):
 
     def visit_ClassDef(self, node):
         super().generic_visit(node)
+        if not node.name[0].isupper():
+            raise AssertionError(f'Error in line {node.lineno}: Class names should be capitalized.')
         for node_in_body in node.body:
             if not isinstance(node_in_body, ast.FunctionDef):
                 raise AssertionError(f'Error in line {node_in_body.lineno}: Classes can only contain defs.')
@@ -132,7 +135,7 @@ class Transformer(ast.NodeTransformer):
 
     def visit_Import(self, node):
         super().generic_visit(node)
-        module_filename = join(self.sys_path_local, f'{node.names[0].name}.py')
+        module_filename = join(sys.path[0], f'{node.names[0].name}.py')
         for node_name in node.names:
             if '.' in node_name.name:
                 raise AssertionError(f'Error in line {node_name.lineno}: Imports submodules is forbidden.')
@@ -149,7 +152,7 @@ class Transformer(ast.NodeTransformer):
 
     def visit_ImportFrom(self, node):
         super().generic_visit(node)
-        module_filename = join(self.sys_path_local, f'{node.module}.py')
+        module_filename = join(sys.path[0], f'{node.module}.py')
         if not isinstance(node.parent, ast.Module):
             raise AssertionError(f'Error in line {node.lineno}: Import Froms can only reside in the module.')
         if exists(module_filename):
@@ -172,8 +175,9 @@ class Transformer(ast.NodeTransformer):
 
     def visit_Name(self, node):
         super().generic_visit(node)
-        if len(node.id) == 1 and node.id != '_':
-            raise AssertionError(f'Error in line {node.lineno}: {node.id} node names cannot be single letter.')
+        if isinstance(node.parent, ast.Assign):
+            if node.id != '_' and (not node.id.islower()):
+                raise AssertionError(f'Error in line {node.lineno}: Assignment names should be lowercased.')
         self.name_list.append(node.id)
         return node
 
@@ -182,9 +186,9 @@ class Transformer(ast.NodeTransformer):
 
 
 def main():
-    if len(argv) == 2:
-        output = source_code_normalizer(argv[1])
-        stdout.write(output)
+    if len(sys.argv) == 2:
+        output = source_code_normalizer(sys.argv[1])
+        sys.stdout.write(output)
 
 
 def source_code_normalizer(code_input):
@@ -236,6 +240,7 @@ def source_code_normalizer(code_input):
                     import_from_group_name_name = import_from_group_name.name
                 if import_from_group_name.name not in import_from_name_name_list and import_from_group_name_name in transformer.name_list:
                     import_from_name_list.append(import_from_group_name)
+        import_from_name_list.sort(key=lambda element: element.name)
         if import_from_name_list:
             new_node = ast.ImportFrom(module=import_from_group.module, names=import_from_name_list, level=import_from_group.level)
             import_from_list.append(new_node)
@@ -272,6 +277,7 @@ def source_code_normalizer(code_input):
             line_list.insert(def_index, '')
             line_list.insert(def_index, '')
     output = '\n'.join(line_list)
+    output += '\n'
     return output
 
 

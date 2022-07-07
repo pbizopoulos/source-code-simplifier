@@ -1,5 +1,5 @@
 def main():
-    t = 1
+    Tmp = 1
 
 
 if __name__ == '__main__':
